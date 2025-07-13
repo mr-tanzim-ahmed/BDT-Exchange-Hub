@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Metal Converter & Price Hub</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background-color: #828282;
+      color: #f0f0f0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .container {
+      padding-top: 2rem;
+    }
+
+    h1, h2 {
+      font-family: 'Times New Roman', Times, serif;
+      font-weight: 400;
+      font-size: 3rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .main-section {
+      background-color: #363636;
+      padding: 2rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+    }
+
+    /* Converter Styles */
+    .converter-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: stretch; /* Align items to have same height */
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .converter-container select,
+    .converter-container button {
+        background-color: #404040;
+        color: #f0f0f0;
+        border: 1px solid #555;
+        padding: 0.75rem;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+    
+    .input-group-custom {
+      display: flex;
+    }
+    
+    .input-group-custom .form-control {
+      background-color: #404040;
+      color: #f0f0f0;
+      border: 1px solid #555;
+      border-right: 0;
+      border-radius: 5px 0 0 5px;
+      width: 100px;
+    }
+
+    .input-group-custom .input-group-text-custom {
+      background-color: #404040;
+      color: #aaa;
+      border: 1px solid #555;
+      padding: 0.75rem;
+      border-left: 0;
+      border-radius: 0 5px 5px 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .converter-container button {
+        background-color: #585858;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .converter-container button:hover {
+        background-color: #6a6a6a;
+    }
+    
+    #metal-result {
+      text-align: center;
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-top: 1rem;
+      min-height: 3rem; /* Reserve space */
+      color: #fff;
+    }
+
+    #metal-result.error {
+      color: #dc3545; /* Red color for errors */
+    }
+
+    /* Tables and General UI */
+    .price-table th,
+    .price-table td,
+    .performance-table th,
+    .performance-table td {
+      border: none;
+      padding: 1rem;
+      vertical-align: middle;
+      font-size: 0.9rem;
+      border-bottom: 1px solid #444;
+    }
+
+    .price-table tr:last-child td,
+    .performance-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .price-table th,
+    .performance-table th {
+      color: #aaa;
+      text-transform: uppercase;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    .metal-icon {
+      width: 40px;
+      height: 40px;
+      display: inline-block;
+      margin-right: 1rem;
+      border-radius: 4px;
+      text-align: center;
+      line-height: 40px;
+      font-weight: bold;
+      color: #000;
+    }
+
+    .gold { background-color: #ffd700; }
+    .silver { background-color: #c0c0c0; }
+    .palladium { background-color: #a0a0a0; }
+    .platinum { background-color: #e5e4e2; }
+
+    .text-success { color: #28a745 !important; }
+    .text-danger { color: #dc3545 !important; }
+    .arrow-up, .arrow-down { font-size: 0.8em; }
+
+    /* --- RESPONSIVE STYLES --- */
+    @media screen and (max-width: 768px) {
+      h2 {
+        font-size: 2.2rem;
+      }
+
+      .main-section {
+        padding: 1rem;
+      }
+      
+      /* Hide table headers */
+      .price-table thead,
+      .performance-table thead {
+        display: none;
+      }
+
+      /* Make table and rows behave like blocks */
+      .price-table, .performance-table,
+      .price-table tbody, .performance-table tbody,
+      .price-table tr, .performance-table tr {
+        display: block;
+      }
+
+      /* Style rows as cards */
+      .price-table tr,
+      .performance-table tr {
+        border: 1px solid #4a4a4a;
+        border-radius: 8px;
+        margin-bottom: 1rem;
+      }
+      .price-table tr:last-child,
+      .performance-table tr:last-child {
+        margin-bottom: 0;
+      }
+
+      /* Make cells behave like block elements */
+      .price-table td,
+      .performance-table td {
+        display: block;
+        text-align: right; /* Align value to the right */
+        padding-left: 50%; /* Make space for the label */
+        position: relative;
+        border-bottom: 1px solid #444;
+      }
+      .price-table td:last-child,
+      .performance-table td:last-child {
+        border-bottom: none;
+      }
+      
+      /* Create the label using the ::before pseudo-element and data-label attribute */
+      .price-table td::before,
+      .performance-table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0.75rem;
+        width: 45%;
+        padding-right: 10px;
+        text-align: left;
+        font-weight: bold;
+        color: #aaa;
+      }
+
+      /* Special styling for the first row (the main identifier) */
+      .price-table td:first-child,
+      .performance-table td:first-child {
+        text-align: left;
+        padding-left: 0.75rem;
+        background-color: rgba(0,0,0,0.2);
+        font-weight: bold;
+        font-size: 1.1em;
+      }
+      .price-table td:first-child::before,
+      .performance-table td:first-child::before {
+        display: none; /* No label needed for the main identifier cell */
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <!-- Metal Converter Section -->
+    <div class="main-section">
+      <h2>Metal Converter</h2>
+      <div class="converter-container">
+        <select id="metal-type" class="form-select w-auto">
+          <option value="XAU">Gold (XAU)</option>
+          <option value="XAG">Silver (XAG)</option>
+          <option value="XPT">Platinum (XPT)</option>
+        </select>
+        <div class="input-group-custom">
+            <input type="number" id="metal-amount" class="form-control" placeholder="10">
+            <span class="input-group-text-custom">grams</span>
+        </div>
+        <button onclick="convertMetal()">Convert</button>
+      </div>
+      <p id="metal-result">Enter an amount to see its value in BDT</p>
+      <div style="height: 250px;">
+        <canvas id="metalChart"></canvas>
+      </div>
+    </div>
+
+    <!-- Precious Metals Prices Section -->
+    <div class="main-section">
+      <h2 class="mt-4">Precious Metals Prices</h2>
+      <table class="table price-table text-white">
+        <thead>
+          <tr>
+            <th>Metal</th>
+            <th>Performance</th>
+            <th>1 Ounce (31.10g)</th>
+            <th>1 Kilogram</th>
+            <th>1 Gram</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="Metal"><span class="metal-icon gold">Au</span> Gold</td>
+            <td data-label="Performance" class="text-success"><i class="fas fa-caret-up"></i> 0.36%</td>
+            <td data-label="1 Ounce">BDT 405,933.00</td>
+            <td data-label="1 Kilogram">BDT 13,051,049.01</td>
+            <td data-label="1 Gram">BDT 13,051.05</td>
+          </tr>
+          <tr>
+            <td data-label="Metal"><span class="metal-icon silver">Ag</span> Silver</td>
+            <td data-label="Performance" class="text-success"><i class="fas fa-caret-up"></i> 0.96%</td>
+            <td data-label="1 Ounce">BDT 4,548.88</td>
+            <td data-label="1 Kilogram">BDT 146,249.89</td>
+            <td data-label="1 Gram">BDT 146.25</td>
+          </tr>
+          <tr>
+            <td data-label="Metal"><span class="metal-icon palladium">Pd</span> Palladium</td>
+            <td data-label="Performance" class="text-success"><i class="fas fa-caret-up"></i> 0.72%</td>
+            <td data-label="1 Ounce">BDT 139,174.00</td>
+            <td data-label="1 Kilogram">BDT 4,474,548.00</td>
+            <td data-label="1 Gram">BDT 4,474.55</td>
+          </tr>
+          <tr>
+            <td data-label="Metal"><span class="metal-icon platinum">Pt</span> Platinum</td>
+            <td data-label="Performance" class="text-danger"><i class="fas fa-caret-down"></i> 0.52%</td>
+            <td data-label="1 Ounce">BDT 165,594.00</td>
+            <td data-label="1 Kilogram">BDT 5,323,970.73</td>
+            <td data-label="1 Gram">BDT 5,323.97</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Performances Section -->
+    <div class="main-section">
+      <h2 class="mt-4">Performances</h2>
+      <table class="table performance-table text-white">
+        <thead>
+          <tr>
+            <th></th>
+            <th class="text-center">5 Days</th>
+            <th class="text-center">1 Month</th>
+            <th class="text-center">YTD</th>
+            <th class="text-center">1 Year</th>
+            <th class="text-center">5 Years</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-label="Metal">Gold Price (BDT)</td>
+            <td data-label="5 Days" class="text-danger text-center"><i class="fas fa-arrow-down arrow-down"></i> 1.15%</td>
+            <td data-label="1 Month" class="text-danger text-center"><i class="fas fa-arrow-down arrow-down"></i> 1.37%</td>
+            <td data-label="YTD" class="text-success text-center"><i class="fas fa-arrow-up arrow-up"></i> 29.92%</td>
+            <td data-label="1 Year" class="text-success text-center"><i class="fas fa-arrow-up arrow-up"></i> 42.54%</td>
+            <td data-label="5 Years" class="text-success text-center"><i class="fas fa-arrow-up arrow-up"></i> 164.49%</td>
+          </tr>
+          <tr>
+            <td data-label="Metal">Silver Price (BDT)</td>
+            <td data-label="5 Days" class="text-danger text-center"><i class="fas fa-arrow-down arrow-down"></i> 0.52%</td>
+            <td data-label="1 Month" class="text-success text-center"><i class="fas fa-arrow-up arrow-up"></i> 1.68%</td>
+            <td data-label="YTD" class="text-success text-center"><i class="fas fa-arrow-up arrow-up"></i> 30.33%</td>
+            <td data-label="1 Year" class="text-success text-center"><i class="fas fa-arrow-up arrow-up"></i> 21.92%</td>
+            <td data-label="5 Years" class="text-success text-center"><i class="fas fa-arrow-up arrow-up"></i> 185.54%</td>
+          </tr>
+          <tr>
+            <td data-label="Metal">Palladium Price (BDT)</td>
+            <td data-label="5 Days" class="text-danger text-center"><i class="fas fa-arrow-down arrow-down"></i> 0.86%</td>
+            <td data-label="1 Month" class="text-success text-center"><i class="fas fa-arrow-up arrow-up"></i> 5.39%</td>
+            <td data-label="YTD" class="text-success text-center"><i class="fas fa-arrow-up arrow-up"></i> 26.59%</td>
+            <td data-label="1 Year" class="text-danger text-center"><i class="fas fa-arrow-down arrow-down"></i> 17.94%</td>
+            <td data-label="5 Years" class="text-danger text-center"><i class="fas fa-arrow-down arrow-down"></i> 16.72%</td>
+          </tr>
+          <tr>
+            <td data-label="Metal">Platinum Price (BDT)</td>
+            <td data-label="5 Days" class="text-danger text-center"><i class="fas fa-arrow-down arrow-down"></i> 3.03%</td>
+            <td data-label="1 Month" class="text-success text-center"><i class="fas fa-arrow-up arrow-up"></i> 7.92%</td>
+            <td data-label="YTD" class="text-success text-center"><i class="fas fa-arrow-up arrow-up"></i> 53.71%</td>
+            <td data-label="1 Year" class="text-success text-center"><i class="fas fa-arrow-up arrow-up"></i> 40.58%</td>
+            <td data-label="5 Years" class="text-success text-center"><i class="fas fa-arrow-up arrow-up"></i> 134.06%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script>
+    let metalChart = null; // To hold the chart instance
+
+    function getSimulatedRate(metal) {
+        let ratePerGram;
+        if (metal === "XAU") ratePerGram = 13051.05;
+        else if (metal === "XAG") ratePerGram = 146.25;
+        else if (metal === "XPT") ratePerGram = 5323.97;
+        else ratePerGram = 0;
+        
+        return new Promise(resolve => {
+            setTimeout(() => {
+                resolve({ success: true, rate: ratePerGram });
+            }, 300);
+        });
+    }
+
+    async function convertMetal() {
+        const metal = document.getElementById("metal-type").value;
+        const grams = parseFloat(document.getElementById("metal-amount").value);
+        const resultElement = document.getElementById("metal-result");
+        resultElement.classList.remove("error");
+
+        if (isNaN(grams) || grams <= 0) {
+            resultElement.textContent = "Please enter a valid amount.";
+            resultElement.classList.add("error");
+            return;
+        }
+        resultElement.textContent = "Fetching rate...";
+
+        try {
+            const data = await getSimulatedRate(metal);
+
+            if (data.success) {
+                const totalBDT = grams * data.rate;
+                const metalName = document.querySelector(`#metal-type option[value=${metal}]`).textContent;
+                resultElement.textContent = `${grams}g of ${metalName.split(' ')[0]} ≈ ${totalBDT.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} BDT`;
+            } else {
+                throw new Error("Invalid data from API.");
+            }
+        } catch (error) {
+            console.error("Conversion failed:", error);
+            resultElement.textContent = "Error: Could not fetch conversion rate.";
+            resultElement.classList.add("error");
+        }
+        
+        drawMetalChart(await getSimulatedMonthlyData(metal));
+    }
+
+    async function getSimulatedMonthlyData(metal) {
+        const prices = [];
+        const labels = [];
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        const today = new Date();
+
+        for (let i = 11; i >= 0; i--) {
+            let date = new Date(today.getFullYear(), today.getMonth() - i, 1);
+            labels.push(monthNames[date.getMonth()]);
+
+            let basePrice;
+            if (metal === "XAU") basePrice = 13000;
+            else if (metal === "XAG") basePrice = 145;
+            else basePrice = 5300;
+            
+            prices.push(Math.floor(basePrice + Math.random() * (basePrice * 0.1) - (basePrice * 0.05)));
+        }
+        return { labels, prices };
+    }
+
+    function drawMetalChart({ labels, prices }) {
+        const ctx = document.getElementById("metalChart").getContext("2d");
+        
+        if (metalChart) {
+            metalChart.destroy();
+        }
+
+        metalChart = new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: "Avg Price per Gram (BDT)",
+                    data: prices,
+                    backgroundColor: "rgba(218, 165, 32, 0.8)",
+                    borderColor: "goldenrod",
+                    borderWidth: 1,
+                }],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { mode: "index", intersect: false },
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        ticks: { color: '#aaa', font: { size: 10 } },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        title: { display: false }
+                    },
+                    x: {
+                        ticks: { color: '#aaa', font: { size: 10 } },
+                        grid: { display: false }
+                    }
+                }
+            },
+        });
+    }
+
+    window.addEventListener('load', async () => {
+        drawMetalChart(await getSimulatedMonthlyData('XAU'));
+        document.getElementById('metal-type').addEventListener('change', async (event) => {
+             drawMetalChart(await getSimulatedMonthlyData(event.target.value));
+        });
+    });
+  </script>
+</body>
+</html>

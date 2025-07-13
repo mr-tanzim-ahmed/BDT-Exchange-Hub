@@ -1,0 +1,104 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\acer\\Desktop\\BDT-Exchange-Hub\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F04C1159-CD33-4832-9550-9C547C3F3489}|BDT-Exchange-Hub\\BDT-Exchange-Hub.csproj|c:\\users\\acer\\desktop\\bdt-exchange-hub\\bdt-exchange-hub\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F04C1159-CD33-4832-9550-9C547C3F3489}|BDT-Exchange-Hub\\BDT-Exchange-Hub.csproj|solutionrelative:bdt-exchange-hub\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F04C1159-CD33-4832-9550-9C547C3F3489}|BDT-Exchange-Hub\\BDT-Exchange-Hub.csproj|c:\\users\\acer\\desktop\\bdt-exchange-hub\\bdt-exchange-hub\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{F04C1159-CD33-4832-9550-9C547C3F3489}|BDT-Exchange-Hub\\BDT-Exchange-Hub.csproj|solutionrelative:bdt-exchange-hub\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F04C1159-CD33-4832-9550-9C547C3F3489}|BDT-Exchange-Hub\\BDT-Exchange-Hub.csproj|c:\\users\\acer\\desktop\\bdt-exchange-hub\\bdt-exchange-hub\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F04C1159-CD33-4832-9550-9C547C3F3489}|BDT-Exchange-Hub\\BDT-Exchange-Hub.csproj|solutionrelative:bdt-exchange-hub\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F04C1159-CD33-4832-9550-9C547C3F3489}|BDT-Exchange-Hub\\BDT-Exchange-Hub.csproj|c:\\users\\acer\\desktop\\bdt-exchange-hub\\bdt-exchange-hub\\wwwroot\\homepage.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F04C1159-CD33-4832-9550-9C547C3F3489}|BDT-Exchange-Hub\\BDT-Exchange-Hub.csproj|solutionrelative:bdt-exchange-hub\\wwwroot\\homepage.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\acer\\Desktop\\Home .html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "site.css",
+              "DocumentMoniker": "C:\\Users\\acer\\Desktop\\BDT-Exchange-Hub\\BDT-Exchange-Hub\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "BDT-Exchange-Hub\\wwwroot\\css\\site.css",
+              "ToolTip": "C:\\Users\\acer\\Desktop\\BDT-Exchange-Hub\\BDT-Exchange-Hub\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "BDT-Exchange-Hub\\wwwroot\\css\\site.css",
+              "ViewState": "AgIAAAcBAAAAAAAAAAAAABMBAAASAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-07-13T02:56:16.436Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\acer\\Desktop\\BDT-Exchange-Hub\\BDT-Exchange-Hub\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "BDT-Exchange-Hub\\Pages\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\acer\\Desktop\\BDT-Exchange-Hub\\BDT-Exchange-Hub\\Pages\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "BDT-Exchange-Hub\\Pages\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAABVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-13T03:28:14.884Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Home .html",
+              "DocumentMoniker": "C:\\Users\\acer\\Desktop\\Home .html",
+              "RelativeDocumentMoniker": "..\\Home .html",
+              "ToolTip": "C:\\Users\\acer\\Desktop\\Home .html",
+              "RelativeToolTip": "..\\Home .html",
+              "ViewState": "AgIAAC8CAAAAAAAAAAAAAEsCAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-07-13T03:14:11.292Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "HomePage.html",
+              "DocumentMoniker": "C:\\Users\\acer\\Desktop\\BDT-Exchange-Hub\\BDT-Exchange-Hub\\wwwroot\\HomePage.html",
+              "RelativeDocumentMoniker": "BDT-Exchange-Hub\\wwwroot\\HomePage.html",
+              "ToolTip": "C:\\Users\\acer\\Desktop\\BDT-Exchange-Hub\\BDT-Exchange-Hub\\wwwroot\\HomePage.html",
+              "RelativeToolTip": "BDT-Exchange-Hub\\wwwroot\\HomePage.html",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAQwCMBAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-07-13T02:57:49.727Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\acer\\Desktop\\BDT-Exchange-Hub\\BDT-Exchange-Hub\\Pages\\Index.cshtml",
+              "RelativeDocumentMoniker": "BDT-Exchange-Hub\\Pages\\Index.cshtml",
+              "ToolTip": "C:\\Users\\acer\\Desktop\\BDT-Exchange-Hub\\BDT-Exchange-Hub\\Pages\\Index.cshtml",
+              "RelativeToolTip": "BDT-Exchange-Hub\\Pages\\Index.cshtml",
+              "ViewState": "AgIAAIgAAAAAAAAAAAAUwPoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-13T02:41:32.275Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

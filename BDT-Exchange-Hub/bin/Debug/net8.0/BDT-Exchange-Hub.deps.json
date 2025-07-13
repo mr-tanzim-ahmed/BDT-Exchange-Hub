@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "BDT-Exchange-Hub/1.0.0": {
+        "runtime": {
+          "BDT-Exchange-Hub.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "BDT-Exchange-Hub/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

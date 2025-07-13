@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency & Metal Converter</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f4f8;
+            color: #1f2937;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #0d9488 0%, #6b7280 50%, #1e3a8a 100%), url('https://images.unsplash.com/photo-1551288049-b7f3c7f2b770');
+            background-size: cover;
+            background-blend-mode: overlay;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .hero-content h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: #facc15;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            max-width: 650px;
+            margin: 0 auto;
+            color: #e5e7eb;
+        }
+
+        /* Converter Section */
+        .converter {
+            max-width: 900px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+            animation: slideUp 0.8s ease-out;
+        }
+
+        @keyframes slideUp {
+            0% {
+                transform: translateY(20px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .converter h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #0d9488;
+        }
+
+        .converter-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 1rem;
+            align-items: center;
+        }
+
+            .converter-form select,
+            .converter-form input {
+                padding: 0.9rem;
+                font-size: 1rem;
+                border: 2px solid #d1d5db;
+                border-radius: 8px;
+                transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            }
+
+                .converter-form select:focus,
+                .converter-form input:focus {
+                    outline: none;
+                    border-color: #facc15;
+                    box-shadow: 0 0 8px rgba(250, 204, 21, 0.4);
+                }
+
+                .converter-form input[type="text"] {
+                    width: 100%;
+                }
+
+        .convert-button {
+            padding: 0.9rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            background: linear-gradient(45deg, #facc15, #f59e0b);
+            color: #1e3a8a;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+            .convert-button:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 4px 15px rgba(250, 204, 21, 0.5);
+            }
+
+        .result-box {
+            grid-column: 1 / -1;
+            padding: 1.2rem;
+            background: #f0f4f8;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 1.3rem;
+            color: #0d9488;
+            border: 2px dashed #0d9488;
+        }
+
+        /* Rates Section */
+        .rates {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .rate-card {
+            background: #fff;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 4px solid #0d9488;
+        }
+
+            .rate-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            .rate-card h3 {
+                font-size: 1.3rem;
+                color: #1e3a8a;
+                margin-bottom: 0.5rem;
+            }
+
+            .rate-card p {
+                font-size: 1.6rem;
+                color: #facc15;
+                font-weight: 700;
+            }
+
+            .rate-card .change {
+                font-size: 1rem;
+                margin-top: 0.5rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 0.3rem;
+            }
+
+            .rate-card .up {
+                color: #10b981;
+            }
+
+            .rate-card .down {
+                color: #ef4444;
+            }
+
+        /* Trends Preview (Graph) */
+        .trends-preview {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 0 2rem;
+            text-align: center;
+        }
+
+            .trends-preview h2 {
+                font-family: 'Playfair Display', serif;
+                font-size: 2.5rem;
+                margin-bottom: 1.5rem;
+                color: #0d9488;
+            }
+
+        .graph-placeholder {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2.8rem;
+            }
+
+            .converter-form {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Convert Currencies & Precious Metals</h1>
+            <p>Your centralized hub for real-time currency exchange and precious metal valuation, focused on the Bangladeshi Taka.</p>
+        </div>
+    </section>
+
+    <!-- Converter Section -->
+    <section class="converter">
+        <h2>Instant Converter</h2>
+        <div class="converter-form">
+            <select id="fromCurrency">
+                <option value="USD">USD - US Dollar</option>
+                <option value="EUR">EUR - Euro</option>
+                <option value="GBP">GBP - Pound Sterling</option>
+                <option value="INR">INR - Indian Rupee</option>
+                <option value="BDT" selected>BDT - Bangladeshi Taka</option>
+                <option value="JPY">JPY - Japanese Yen</option>
+                <option value="CAD">CAD - Canadian Dollar</option>
+                <option value="AUD">AUD - Australian Dollar</option>
+                <option value="XAU">Gold (XAU)</option>
+                <option value="XAG">Silver (XAG)</option>
+                <option value="XPT">Platinum (XPT)</option>
+            </select>
+            <select id="toCurrency">
+                <option value="USD" selected>USD - US Dollar</option>
+                <option value="EUR">EUR - Euro</option>
+                <option value="GBP">GBP - Pound Sterling</option>
+                <option value="INR">INR - Indian Rupee</option>
+                <option value="BDT">BDT - Bangladeshi Taka</option>
+                <option value="JPY">JPY - Japanese Yen</option>
+                <option value="CAD">CAD - Canadian Dollar</option>
+                <option value="AUD">AUD - Australian Dollar</option>
+                <option value="XAU">Gold (XAU)</option>
+                <option value="XAG">Silver (XAG)</option>
+                <option value="XPT">Platinum (XPT)</option>
+            </select>
+            <input type="number" id="amountInput" placeholder="Enter amount" value="1000">
+            <button id="convertBtn" class="convert-button">Convert Now</button>
+            <div id="resultBox" class="result-box">Result will be shown here...</div>
+        </div>
+    </section>
+
+    <!-- Rates Section -->
+    <section class="rates">
+        <div class="rate-card" id="goldRateCard">
+            <h3>Gold (XAU)</h3>
+            <p>Loading...</p>
+            <div class="change">--</div>
+        </div>
+        <div class="rate-card" id="silverRateCard">
+            <h3>Silver (XAG)</h3>
+            <p>Loading...</p>
+            <div class="change">--</div>
+        </div>
+        <div class="rate-card" id="platinumRateCard">
+            <h3>Platinum (XPT)</h3>
+            <p>Loading...</p>
+            <div class="change">--</div>
+        </div>
+        <div class="rate-card" id="eurRateCard">
+            <h3>EUR/USD</h3>
+            <p>Loading...</p>
+            <div class="change">--</div>
+        </div>
+    </section>
+
+    <!-- Trends Preview (Graph) -->
+    <section class="trends-preview">
+        <h2>BDT to USD Trend (Last 30 Days)</h2>
+        <div class="graph-placeholder">
+            <canvas id="trendsChart"></canvas>
+        </div>
+    </section>
+
+    <script>
+        // Your full JS remains unchanged
+    </script>
+</body>
+</html>

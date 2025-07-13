@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Currency Converter</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+    }
+    .title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #0a0a61;
+    }
+    .sub-title { color: gray; }
+    .flag {
+      width: 30px;
+      height: 20px;
+      margin-right: 12px;
+    }
+    .exchange-icon { font-size: 1.5rem; color: #0d6efd; padding: 0 15px; }
+    .currency-selector {
+      display: flex;
+      align-items: center;
+      border: 1px solid #ced4da;
+      border-radius: .375rem;
+      background-color: white;
+      padding-left: 1rem;
+    }
+    .currency-display {
+      display: flex;
+      align-items: center;
+      padding: .375rem 0;
+    }
+    .currency-selector .form-control { border: none; box-shadow: none; }
+    .dropdown-item img { margin-right: 8px; }
+    #chartSection, #rateDisplay, #liveRatesSection { display: none; }
+    .chart-container { position: relative; height: 300px; width: 100%; }
+
+    /* --- RESPONSIVE STYLES --- */
+    @media screen and (max-width: 768px) {
+      .title {
+        font-size: 2rem; /* Smaller font for mobile */
+      }
+      .sub-title {
+        font-size: 0.9rem;
+      }
+      .exchange-icon {
+        display: none; /* Hide the arrow on stacked view */
+      }
+      
+      /* Responsive Table: Card View */
+      #liveRatesSection table thead {
+        display: none; /* Hide the original table header */
+      }
+
+      #liveRatesSection table, 
+      #liveRatesSection table tbody, 
+      #liveRatesSection table tr {
+        display: block; /* Make table elements behave like blocks */
+      }
+
+      #liveRatesSection table tr {
+        border: 1px solid #dee2e6;
+        border-radius: .375rem;
+        margin-bottom: 1rem;
+        background-color: #fff;
+      }
+
+      #liveRatesSection table td {
+        display: block;
+        text-align: right; /* Align value to the right */
+        padding-left: 50%; /* Create space for the label */
+        position: relative;
+        border: none;
+        border-bottom: 1px solid #eee; /* Separator between "rows" */
+      }
+
+      #liveRatesSection table td:last-child {
+        border-bottom: none;
+      }
+
+      /* Use pseudo-element to create data labels */
+      #liveRatesSection table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: .75rem;
+        width: 45%;
+        text-align: left;
+        font-weight: bold;
+        color: #343a40;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-5">
+    <div class="text-center">
+      <div class="title">Currency Converter</div>
+      <div class="sub-title">Over 10 years of currency data</div>
+    </div>
+
+    <!-- Converter UI -->
+    <div class="row mt-5 align-items-center justify-content-center">
+      <!-- From Currency (Fixed to BDT) -->
+      <div class="col-md-5 mb-3">
+        <div class="currency-selector">
+          <div class="currency-display flex-grow-1">
+            <img src="https://flagcdn.com/bd.svg" class="flag" alt="BDT Flag">
+            <span class="fw-bold">BDT</span>(taka)
+          </div>
+          <input id="fromAmount" type="number" class="form-control text-end" value="1">
+        </div>
+      </div>
+
+      <div class="col-auto"><div class="exchange-icon">→</div></div>
+
+      <!-- To Currency (Selectable) -->
+      <div class="col-md-5 mb-3">
+        <div class="currency-selector">
+          <div class="dropdown flex-grow-1">
+            <button id="toCurrencyBtn" class="btn dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
+            <ul id="toCurrencyMenu" class="dropdown-menu"></ul>
+          </div>
+          <input id="toAmount" type="text" class="form-control text-end" placeholder="0.00" readonly>
+        </div>
+      </div>
+    </div>
+
+    <!-- Convert Button -->
+    <div class="row justify-content-center mt-3">
+      <div class="col-md-4"><button id="convertBtn" class="btn btn-primary w-100 btn-lg">Convert</button></div>
+    </div>
+    
+    <!-- Dynamic Rate Display -->
+    <div id="rateDisplay" class="text-center mt-3 small"></div>
+
+    <!-- Live Exchange Rates Table -->
+    <div id="liveRatesSection" class="mt-5">
+        <h5 class="mb-3 text-center">Live Exchange Rates (Base: USD)</h5>
+        <table class="table">
+            <thead class="table-light">
+                <tr>
+                    <th>Currency</th>
+                    <th>Name</th>
+                    <th>Units per USD</th>
+                    <th>USD per Unit</th>
+                </tr>
+            </thead>
+            <tbody id="ratesTableBody">
+                <!-- Data will be inserted by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Chart Section -->
+    <div id="chartSection" class="mt-4">
+      <h6 id="chartTitle"></h6>
+      <div class="chart-container"><canvas id="chartCanvas"></canvas></div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const API_URL_USD_BASE = 'https://api.exchangerate-api.com/v4/latest/USD';
+    const API_URL_BDT_BASE = 'https://api.exchangerate-api.com/v4/latest/BDT';
+
+    const fromAmountInput = document.getElementById('fromAmount');
+    const toAmountInput = document.getElementById('toAmount');
+    const toCurrencyBtn = document.getElementById('toCurrencyBtn');
+    const toCurrencyMenu = document.getElementById('toCurrencyMenu');
+    const rateDisplay = document.getElementById('rateDisplay');
+    const chartSection = document.getElementById('chartSection');
+    const chartTitle = document.getElementById('chartTitle');
+    const liveRatesSection = document.getElementById('liveRatesSection');
+    const ratesTableBody = document.getElementById('ratesTableBody');
+
+    let bdtRates = {};
+    let selectedToCurrency = 'USD'; // Default currency
+    let currencyChart = null;
+
+    const currencyMeta = {
+      'USD': { name: 'US dollar', flag: 'https://flagcdn.com/us.svg' },
+      'EUR': { name: 'Euro', flag: 'https://flagcdn.com/eu.svg' },
+      'JPY': { name: 'Japanese yen', flag: 'https://flagcdn.com/jp.svg' },
+      'GBP': { name: 'Pound sterling', flag: 'https://flagcdn.com/gb.svg' },
+      'INR': { name: 'Indian Rupee', flag: 'https://flagcdn.com/in.svg' },
+      'AUD': { name: 'Australian Dollar', flag: 'https://flagcdn.com/au.svg' },
+      'CAD': { name: 'Canadian Dollar', flag: 'https://flagcdn.com/ca.svg' },
+      'BDT': { name: 'Bangladeshi Taka', flag: 'https://flagcdn.com/bd.svg' }
+    };
+
+    async function fetchRates() {
+      try {
+        const [bdtResponse, usdResponse] = await Promise.all([
+          fetch(API_URL_BDT_BASE),
+          fetch(API_URL_USD_BASE)
+        ]);
+        if (!bdtResponse.ok || !usdResponse.ok) throw new Error('Network response was not ok.');
+        
+        const bdtData = await bdtResponse.json();
+        const usdData = await usdResponse.json();
+        
+        bdtRates = bdtData.rates;
+        populateUIT(usdData.rates);
+        
+      } catch (error) {
+        console.error('Failed to fetch exchange rates:', error);
+        alert('Could not load live exchange rates. Please check your connection and try again.');
+      }
+    }
+
+    function populateUIT(usdRates) {
+      // Populate "To" currency dropdown
+      toCurrencyMenu.innerHTML = '';
+      for (const code in currencyMeta) {
+        if (code === 'BDT') continue;
+        const meta = currencyMeta[code];
+        toCurrencyMenu.innerHTML += `
+          <li>
+            <a class="dropdown-item d-flex align-items-center" href="#" data-code="${code}">
+              <img src="${meta.flag}" class="flag" alt="${code} Flag">
+              <span class="fw-bold">${code}</span> - ${meta.name}
+            </a>
+          </li>`;
+      }
+      updateToButtonUI(selectedToCurrency);
+      addMenuListeners();
+
+      // Populate Live Rates table, adding data-label attributes for mobile view
+      ratesTableBody.innerHTML = '';
+      for (const code of ['EUR', 'GBP', 'INR', 'AUD', 'CAD', 'BDT']) {
+        const rate = usdRates[code];
+        if (rate) {
+          ratesTableBody.innerHTML += `
+            <tr>
+              <td data-label="Currency"><strong>${code}</strong></td>
+              <td data-label="Name">${currencyMeta[code]?.name || 'N/A'}</td>
+              <td data-label="Units per USD">${rate.toFixed(6)}</td>
+              <td data-label="USD per Unit">${(1 / rate).toFixed(6)}</td>
+            </tr>`;
+        }
+      }
+      liveRatesSection.style.display = 'block';
+    }
+
+    function updateToButtonUI(code) {
+      selectedToCurrency = code;
+      const meta = currencyMeta[code];
+      toCurrencyBtn.innerHTML = `
+        <img src="${meta.flag}" class="flag" alt="${code} Flag">
+        <span class="fw-bold">${code}</span> - ${meta.name}`;
+    }
+
+    function addMenuListeners() {
+      document.querySelectorAll('#toCurrencyMenu .dropdown-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+          e.preventDefault();
+          updateToButtonUI(e.currentTarget.dataset.code);
+        });
+      });
+    }
+
+    function handleConversion() {
+      const amount = parseFloat(fromAmountInput.value) || 0;
+      const rate = bdtRates[selectedToCurrency];
+      
+      if (rate) {
+        const result = amount * rate;
+        toAmountInput.value = result.toFixed(2);
+        
+        rateDisplay.innerHTML = `<span style="color:green">●</span> 1 BDT = ${rate.toFixed(6)} ${selectedToCurrency}
+            <span class="text-muted">${new Date().toLocaleString()}</span>`;
+        rateDisplay.style.display = 'block';
+
+        updateChart();
+      }
+    }
+    
+    function updateChart() {
+        chartSection.style.display = 'block';
+        chartTitle.textContent = `BDT to ${selectedToCurrency} Chart (Static Demo)`;
+
+        if (currencyChart) currencyChart.destroy();
+        
+        const ctx = document.getElementById('chartCanvas').getContext('2d');
+        currencyChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [...Array(30).keys()].map(i => `Day ${i+1}`),
+                datasets: [{
+                    label: 'Exchange Rate',
+                    data: [...Array(30)].map(() => bdtRates[selectedToCurrency] * (1 + (Math.random() - 0.5) * 0.05)), // Demo data based on real rate
+                    borderColor: '#0d6efd',
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } }
+            }
+        });
+    }
+
+    document.getElementById('convertBtn').addEventListener('click', handleConversion);
+    document.addEventListener('DOMContentLoaded', fetchRates);
+  </script>
+</body>
+</html>```

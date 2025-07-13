@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BDT Exchange Hub</title>
+
+    <!-- Google Fonts required by your site.css -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+
+    <!-- Your existing stylesheets -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/BDT_Exchange_Hub.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <!-- This <nav> element is styled directly by your site.css to be full-width -->
+        <nav>
+            <!-- This container centers the content inside the full-width nav bar -->
+            <div class="nav-container">
+                <a class="logo" asp-area="" asp-page="/Index">BDT Exchange Hub</a>
+                <div class="nav-links">
+                    <a asp-area="" asp-page="/Index">Home</a>
+                    <a asp-area="" asp-page="/Currency">Currency</a>
+                    <a asp-area="" asp-page="/Metal">Metal</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- The main content of your pages will be rendered here, inside a standard container -->
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- The footer is styled by your site.css -->
+    <footer>
+        <div class="footer-content">
+            <p>© 2025 BDT Exchange Hub. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

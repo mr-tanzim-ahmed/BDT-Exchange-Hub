@@ -7,12 +7,20 @@
       "RelativeMoniker": "D:0:0:{F04C1159-CD33-4832-9550-9C547C3F3489}|BDT-Exchange-Hub\\BDT-Exchange-Hub.csproj|solutionrelative:bdt-exchange-hub\\pages\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F04C1159-CD33-4832-9550-9C547C3F3489}|BDT-Exchange-Hub\\BDT-Exchange-Hub.csproj|c:\\users\\acer\\desktop\\bdt-exchange-hub\\bdt-exchange-hub\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{F04C1159-CD33-4832-9550-9C547C3F3489}|BDT-Exchange-Hub\\BDT-Exchange-Hub.csproj|solutionrelative:bdt-exchange-hub\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{F04C1159-CD33-4832-9550-9C547C3F3489}|BDT-Exchange-Hub\\BDT-Exchange-Hub.csproj|c:\\users\\acer\\desktop\\bdt-exchange-hub\\bdt-exchange-hub\\pages\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F04C1159-CD33-4832-9550-9C547C3F3489}|BDT-Exchange-Hub\\BDT-Exchange-Hub.csproj|solutionrelative:bdt-exchange-hub\\pages\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F04C1159-CD33-4832-9550-9C547C3F3489}|BDT-Exchange-Hub\\BDT-Exchange-Hub.csproj|c:\\users\\acer\\desktop\\bdt-exchange-hub\\bdt-exchange-hub\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{F04C1159-CD33-4832-9550-9C547C3F3489}|BDT-Exchange-Hub\\BDT-Exchange-Hub.csproj|solutionrelative:bdt-exchange-hub\\pages\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F04C1159-CD33-4832-9550-9C547C3F3489}|BDT-Exchange-Hub\\BDT-Exchange-Hub.csproj|c:\\users\\acer\\desktop\\bdt-exchange-hub\\bdt-exchange-hub\\wwwroot\\metal.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{F04C1159-CD33-4832-9550-9C547C3F3489}|BDT-Exchange-Hub\\BDT-Exchange-Hub.csproj|solutionrelative:bdt-exchange-hub\\wwwroot\\metal.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F04C1159-CD33-4832-9550-9C547C3F3489}|BDT-Exchange-Hub\\BDT-Exchange-Hub.csproj|c:\\users\\acer\\desktop\\bdt-exchange-hub\\bdt-exchange-hub\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{F04C1159-CD33-4832-9550-9C547C3F3489}|BDT-Exchange-Hub\\BDT-Exchange-Hub.csproj|solutionrelative:bdt-exchange-hub\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F04C1159-CD33-4832-9550-9C547C3F3489}|BDT-Exchange-Hub\\BDT-Exchange-Hub.csproj|c:\\users\\acer\\desktop\\bdt-exchange-hub\\bdt-exchange-hub\\wwwroot\\homepage.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -29,11 +37,37 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "C:\\Users\\acer\\Desktop\\BDT-Exchange-Hub\\BDT-Exchange-Hub\\Pages\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "BDT-Exchange-Hub\\Pages\\_ViewImports.cshtml",
+              "ToolTip": "C:\\Users\\acer\\Desktop\\BDT-Exchange-Hub\\BDT-Exchange-Hub\\Pages\\_ViewImports.cshtml",
+              "RelativeToolTip": "BDT-Exchange-Hub\\Pages\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-13T11:45:46.624Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "metal.html",
+              "DocumentMoniker": "C:\\Users\\acer\\Desktop\\BDT-Exchange-Hub\\BDT-Exchange-Hub\\wwwroot\\metal.html",
+              "RelativeDocumentMoniker": "BDT-Exchange-Hub\\wwwroot\\metal.html",
+              "ToolTip": "C:\\Users\\acer\\Desktop\\BDT-Exchange-Hub\\BDT-Exchange-Hub\\wwwroot\\metal.html",
+              "RelativeToolTip": "BDT-Exchange-Hub\\wwwroot\\metal.html",
+              "ViewState": "AgIAAOEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-07-13T11:28:57.057Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "site.css",
               "DocumentMoniker": "C:\\Users\\acer\\Desktop\\BDT-Exchange-Hub\\BDT-Exchange-Hub\\wwwroot\\css\\site.css",
               "RelativeDocumentMoniker": "BDT-Exchange-Hub\\wwwroot\\css\\site.css",
@@ -41,8 +75,7 @@
               "RelativeToolTip": "BDT-Exchange-Hub\\wwwroot\\css\\site.css",
               "ViewState": "AgIAAAcBAAAAAAAAAAAAABMBAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-07-13T02:56:16.436Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-13T02:56:16.436Z"
             },
             {
               "$type": "Document",
@@ -52,14 +85,14 @@
               "RelativeDocumentMoniker": "BDT-Exchange-Hub\\Pages\\Shared\\_Layout.cshtml",
               "ToolTip": "C:\\Users\\acer\\Desktop\\BDT-Exchange-Hub\\BDT-Exchange-Hub\\Pages\\Shared\\_Layout.cshtml",
               "RelativeToolTip": "BDT-Exchange-Hub\\Pages\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAABVAAAAAAAAAA==",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABkAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-07-13T03:28:14.884Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "Home .html",
               "DocumentMoniker": "C:\\Users\\acer\\Desktop\\Home .html",
               "RelativeDocumentMoniker": "..\\Home .html",
@@ -67,12 +100,11 @@
               "RelativeToolTip": "..\\Home .html",
               "ViewState": "AgIAAC8CAAAAAAAAAAAAAEsCAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-07-13T03:14:11.292Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-13T03:14:11.292Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "HomePage.html",
               "DocumentMoniker": "C:\\Users\\acer\\Desktop\\BDT-Exchange-Hub\\BDT-Exchange-Hub\\wwwroot\\HomePage.html",
               "RelativeDocumentMoniker": "BDT-Exchange-Hub\\wwwroot\\HomePage.html",
@@ -80,8 +112,7 @@
               "RelativeToolTip": "BDT-Exchange-Hub\\wwwroot\\HomePage.html",
               "ViewState": "AgIAAAYAAAAAAAAAAAAQwCMBAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
-              "WhenOpened": "2025-07-13T02:57:49.727Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-07-13T02:57:49.727Z"
             },
             {
               "$type": "Document",
@@ -91,7 +122,7 @@
               "RelativeDocumentMoniker": "BDT-Exchange-Hub\\Pages\\Index.cshtml",
               "ToolTip": "C:\\Users\\acer\\Desktop\\BDT-Exchange-Hub\\BDT-Exchange-Hub\\Pages\\Index.cshtml",
               "RelativeToolTip": "BDT-Exchange-Hub\\Pages\\Index.cshtml",
-              "ViewState": "AgIAAIgAAAAAAAAAAAAUwPoAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAPoAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-07-13T02:41:32.275Z",
               "EditorCaption": ""

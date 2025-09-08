@@ -2,7 +2,7 @@
 # BDT Currency Converter
 
 ## Project Sponsor
-Bangladesh Bank
+Bangladesh Bank (Assume)
 
 ## Business Need
 To support individuals, businesses, and investors in making informed financial decisions, there is a critical need for a reliable and accessible platform that provides up-to-date conversion rates of Bangladeshi Taka (BDT) against major foreign currencies and precious metals. This tool will help users track real-time and historical price trends, enabling better planning for travel, trade, remittances, and investments.

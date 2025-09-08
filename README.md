@@ -1,8 +1,6 @@
 # Web Programming Course Project
 # BDT Currency Converter
 
-# BDT Currency Converter
-
 ## Project Sponsor
 Bangladesh Bank(Assume)
 
